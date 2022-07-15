@@ -15,9 +15,7 @@ const Trending = () => {
           params: { api_key: `${process.env.REACT_APP_GIPHY_KEY}` },
         }
       );
-      console.log(">>>DATA", response);
       const gifs = response.data.data;
-      console.log("gifs", gifs);
       setTrendingGifs(gifs);
       setLoading(false);
     };

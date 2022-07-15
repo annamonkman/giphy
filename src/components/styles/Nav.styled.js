@@ -14,6 +14,7 @@ export const StyledNav = styled.nav`
     }
     .search-svg {
       color: #00ff77;
+      transform: scaleX(-1);
     }
     .trending-svg {
       color: #00d5ff;

@@ -14,6 +14,16 @@ body {
   margin: 0;
 	padding: 0;
 }
+input, button {
+	border: none;
+	border-radius: none;
+}
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+button:hover {
+	cursor: pointer;
+}
 `;
 
 export default GlobalStyles;
