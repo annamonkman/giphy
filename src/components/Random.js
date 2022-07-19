@@ -45,7 +45,7 @@ const Random = () => {
         <div className="img-button">
           <img
             src={randomGifUrl}
-            alt="random gif NAME<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+            alt="random gif NAME<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
           ></img>
           <button onClick={handleNewGif} aria-label="generate random gif">
             <FaRandom size="20px" />
