@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import Loader from "./Loader";
 import { StyledTrending } from "./styles/Trending.styled";
 
 const Trending = () => {
@@ -28,7 +29,7 @@ const Trending = () => {
         <h1>Trending</h1>
         <div>
           {loading ? (
-            <div>loading...</div>
+            <Loader />
           ) : (
             <div className="trending-gallery">
               {trendingGifs.map((gif) => (

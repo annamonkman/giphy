@@ -13,9 +13,6 @@ export const StyledFinder = styled.div`
       height: 40px;
       padding-left: 10px;
     }
-    /* input::placeholder {
-      padding-left: 8px;
-    } */
     button {
       width: 55px;
       border: none;

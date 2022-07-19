@@ -1,28 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 
 import { StyledFinder } from "./styles/Finder.styled";
 import { FiSearch } from "react-icons/fi";
+import Loader from "./Loader";
 
 const Finder = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchedGifs, setSearchedGifs] = useState([]);
 
-  function handleSearch() {
-    const getData = async () => {
-      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
-        params: {
-          api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
-          q: searchTerm,
-        },
-      });
-      const gifs = response.data.data;
-      setSearchedGifs(gifs);
-      setLoading(false);
-    };
-    getData();
-  }
+  const getData = useCallback(async () => {
+    setLoading(true);
+    const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+      params: {
+        api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
+        q: searchTerm,
+      },
+    });
+    const gifs = response.data.data;
+    setSearchedGifs(gifs);
+    setLoading(false);
+  }, [searchTerm]);
 
   return (
     <div className="component">
@@ -38,13 +37,13 @@ const Finder = () => {
               setSearchTerm(event.target.value);
             }}
           />
-          <button onClick={handleSearch} aria-label="Search gifs">
+          <button onClick={getData} aria-label="Search gifs">
             <FiSearch size="25px" />
           </button>
         </div>
         <div>
           {loading ? (
-            <div>loading...</div>
+            <Loader />
           ) : (
             <div className="search-gallery">
               {searchedGifs.map((gif) => (
