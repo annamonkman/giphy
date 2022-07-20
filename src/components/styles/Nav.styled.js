@@ -6,17 +6,17 @@ export const StyledNav = styled.nav`
   justify-content: space-around;
   align-items: center;
   height: 35px;
-  a {
+  .nav__link {
     padding: 0;
     margin: 0;
-    .random-svg {
+    .nav__icon--random {
       color: ${(props) => props.theme.colors.random};
     }
-    .search-svg {
+    .nav__icon--finder {
       color: ${(props) => props.theme.colors.finder};
       transform: scaleX(-1);
     }
-    .trending-svg {
+    .nav__icon--trending {
       color: ${(props) => props.theme.colors.trending};
     }
   }

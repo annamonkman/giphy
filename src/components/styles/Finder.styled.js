@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
 export const StyledFinder = styled.div`
-  .input-button {
+  .form {
     width: 100%;
     display: flex;
     flex-direction: row;
-    input {
+    &__input {
       flex-grow: 1;
       border: none;
       background-color: white;
       height: 40px;
       padding-left: 10px;
     }
-    button {
+    &__btn {
       width: 55px;
       border: none;
       background-color: pink;
@@ -27,13 +27,13 @@ export const StyledFinder = styled.div`
     }
   }
 
-  .search-gallery {
+  .gallery {
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
-    img {
+    &__img {
       max-width: 150px;
       margin: 2px;
       border-radius: 4px;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledLoader = styled.div`
-  .loading {
+  .loader {
     margin: 0 auto;
     margin-top: 40px;
     margin-bottom: 30px;
@@ -9,7 +9,7 @@ export const StyledLoader = styled.div`
     height: 50px;
     position: relative;
 
-    p {
+    &__text {
       top: 0;
       padding: 0;
       margin: 0;
@@ -45,7 +45,7 @@ export const StyledLoader = styled.div`
         }
       }
     }
-    span {
+    &__bar {
       background-color: #f7e648;
       border-radius: 50px;
       display: block;

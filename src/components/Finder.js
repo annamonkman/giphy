@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 
+import Error from "./Error";
 import { StyledFinder } from "./styles/Finder.styled";
 import { FiSearch } from "react-icons/fi";
 import Loader from "./Loader";
@@ -10,31 +11,47 @@ const Finder = () => {
   const [loading, setLoading] = useState(true);
   const [searchedGifs, setSearchedGifs] = useState([]);
   const [placeholderGifs, setPlaceholderGifs] = useState([]);
+  const [error, setError] = useState(false);
 
   const getData = useCallback(async () => {
+    setError(false);
     setLoading(true);
-    const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
-      params: {
-        api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
-        q: searchTerm,
-      },
-    });
-    const gifs = response.data.data;
-    setSearchedGifs(gifs);
+    try {
+      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
+          q: searchTerm,
+        },
+      });
+      const gifs = response.data.data;
+      setSearchedGifs(gifs);
+    } catch (err) {
+      setError(true);
+      console.log(err);
+    }
     setLoading(false);
   }, [searchTerm]);
 
   useEffect(() => {
     const getPlaceholderData = async () => {
+      setError(false);
       setLoading(true);
-      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
-        params: {
-          api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
-          q: "search",
-        },
-      });
-      const gifs = response.data.data;
-      setPlaceholderGifs(gifs);
+      try {
+        const response = await axios.get(
+          "https://api.giphy.com/v1/gifs/search",
+          {
+            params: {
+              api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
+              q: "search",
+            },
+          }
+        );
+        const gifs = response.data.data;
+        setPlaceholderGifs(gifs);
+      } catch (err) {
+        setError(true);
+        console.log(err);
+      }
       setLoading(false);
     };
     getPlaceholderData();
@@ -43,13 +60,17 @@ const Finder = () => {
   return (
     <div className="component">
       <StyledFinder>
-        <div className="heading">
-          <FiSearch className="search-svg" size="30px" />
-          <h1>Finder</h1>
+        <div className="component__heading">
+          <FiSearch
+            className="component__heading__icon component__heading__icon--finder"
+            size="30px"
+          />
+          <h2 className="component__heading__text">Finder</h2>
         </div>
 
-        <div className="input-button">
+        <div className="form">
           <input
+            className="form__input"
             type="search"
             name="search"
             placeholder="Search all GIFs"
@@ -58,37 +79,51 @@ const Finder = () => {
               setSearchTerm(event.target.value);
             }}
           />
-          <button onClick={getData} aria-label="Search gifs">
+          <button
+            onClick={getData}
+            aria-label="Search gifs"
+            className="form__btn"
+          >
             <FiSearch size="25px" />
           </button>
         </div>
-        <div>
+        <>
           {!searchTerm ? (
-            <div>
+            <>
+              {error && <Error />}
               {loading ? (
                 <Loader />
               ) : (
-                <div className="search-gallery">
+                <div className="gallery">
                   {placeholderGifs.map((gif) => (
-                    <img src={gif.images.fixed_height.url} alt="gif"></img>
+                    <img
+                      src={gif.images.fixed_height.url}
+                      alt="gif"
+                      className="gallery__img"
+                    ></img>
                   ))}
                 </div>
               )}
-            </div>
+            </>
           ) : (
-            <div>
+            <>
+              {error && <Error />}
               {loading ? (
                 <Loader />
               ) : (
-                <div className="search-gallery">
+                <div className="gallery">
                   {searchedGifs.map((gif) => (
-                    <img src={gif.images.fixed_height.url} alt="gif"></img>
+                    <img
+                      src={gif.images.fixed_height.url}
+                      alt="gif"
+                      className="gallery__img"
+                    ></img>
                   ))}
                 </div>
               )}
-            </div>
+            </>
           )}
-        </div>
+        </>
       </StyledFinder>
     </div>
   );

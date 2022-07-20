@@ -5,15 +5,16 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <StyledHeader>
-      <Link to="/">
+    <StyledHeader className="header">
+      <Link to="/" className="header__link">
         <Image
           src={require("../assets/giphy-logo2.svg").default}
           alt="giphy logo"
+          className="header__img"
         />
       </Link>
-      <Link to="/">
-        <h1>GIPHY</h1>
+      <Link to="/" className="header__link">
+        <h1 className="header__title">GIPHY</h1>
       </Link>
     </StyledHeader>
   );

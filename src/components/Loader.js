@@ -4,9 +4,9 @@ import { StyledLoader } from "../components/styles/Loader.styled";
 const Loader = () => {
   return (
     <StyledLoader>
-      <div className="loading">
-        <p>loading</p>
-        <span></span>
+      <div className="loader">
+        <p className="loader__text">loading</p>
+        <span className="loader__bar"></span>
       </div>
     </StyledLoader>
   );

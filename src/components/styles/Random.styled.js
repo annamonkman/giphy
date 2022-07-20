@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const StyledRandom = styled.div`
-  .img-button {
+  .random {
     display: flex;
     flex-direction: column;
     align-items: center;
-    img {
+    &__img {
       width: 100%;
     }
-    button {
+    &__btn {
       width: 180px;
       height: 45px;
       margin-top: 30px;

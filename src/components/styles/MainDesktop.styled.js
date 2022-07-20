@@ -12,28 +12,28 @@ export const StyledMainDesktop = styled.div`
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 15px;
-    .heading {
+    .component__heading {
       display: flex;
       flex-direction: row;
       margin-bottom: 20px;
-      h1 {
+      .component__heading__text {
         color: white;
         font-weight: 600;
         font-size: 20px;
         margin: 0;
       }
-      .trending-svg {
+      .component__heading__icon {
+        margin-right: 20px;
+      }
+      .component__heading__icon--trending {
         color: ${(props) => props.theme.colors.trending};
-        margin-right: 20px;
       }
-      .random-svg {
+      .component__heading__icon--random {
         color: ${(props) => props.theme.colors.random};
-        margin-right: 20px;
       }
-      .search-svg {
+      .component__heading__icon--finder {
         color: ${(props) => props.theme.colors.finder};
         transform: scaleX(-1);
-        margin-right: 20px;
       }
     }
   }

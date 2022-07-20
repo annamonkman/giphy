@@ -7,11 +7,11 @@ export const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.colors.darkGrey};
   display: flex;
   align-items: center;
-  img {
+  .header__img {
     width: 30px;
     margin-left: 10px;
   }
-  h1 {
+  .header__title {
     color: white;
     text-transform: uppercase;
     margin: 0;

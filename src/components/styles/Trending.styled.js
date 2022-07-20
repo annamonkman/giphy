@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const StyledTrending = styled.div`
-  .trending-gallery {
+  .content__gallery {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
-    img {
+    &__img {
       max-width: 150px;
       margin: 2px;
       border-radius: 4px;
