@@ -26,8 +26,10 @@ export const StyledFinder = styled.div`
       );
     }
   }
-
-  .gallery {
+  .content__no-results {
+    color: white;
+  }
+  .content__gallery {
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;

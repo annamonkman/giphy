@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Error from "./Error";
@@ -13,7 +13,7 @@ const Finder = () => {
   const [placeholderGifs, setPlaceholderGifs] = useState([]);
   const [error, setError] = useState(false);
 
-  const getData = useCallback(async () => {
+  const getData = async () => {
     setError(false);
     setLoading(true);
     try {
@@ -30,7 +30,7 @@ const Finder = () => {
       console.log(err);
     }
     setLoading(false);
-  }, [searchTerm]);
+  };
 
   useEffect(() => {
     const getPlaceholderData = async () => {
@@ -87,19 +87,25 @@ const Finder = () => {
             <FiSearch size="25px" />
           </button>
         </div>
-        <>
-          {!searchTerm ? (
+
+        <div className="content">
+          {searchedGifs.length === 0 && (
+            <p className="content__no-results">
+              No results, Try another search
+            </p>
+          )}
+          {searchTerm === "" ? (
             <>
               {error && <Error />}
               {loading ? (
                 <Loader />
               ) : (
-                <div className="gallery">
+                <div className="content__gallery">
                   {placeholderGifs.map((gif) => (
                     <img
                       src={gif.images.fixed_height.url}
-                      alt="gif"
-                      className="gallery__img"
+                      alt={gif.title}
+                      className="content__gallery__img"
                     ></img>
                   ))}
                 </div>
@@ -111,19 +117,19 @@ const Finder = () => {
               {loading ? (
                 <Loader />
               ) : (
-                <div className="gallery">
+                <div className="content__gallery">
                   {searchedGifs.map((gif) => (
                     <img
                       src={gif.images.fixed_height.url}
-                      alt="gif"
-                      className="gallery__img"
+                      alt={gif.title}
+                      className="content__gallery__img"
                     ></img>
                   ))}
                 </div>
               )}
             </>
           )}
-        </>
+        </div>
       </StyledFinder>
     </div>
   );

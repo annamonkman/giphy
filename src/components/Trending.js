@@ -53,7 +53,7 @@ const Trending = () => {
               {trendingGifs.map((gif) => (
                 <img
                   src={gif.images.fixed_height.url}
-                  alt="gif"
+                  alt={gif.title}
                   className="content__gallery__img"
                 ></img>
               ))}
