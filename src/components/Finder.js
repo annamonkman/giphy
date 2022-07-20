@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 
 import { StyledFinder } from "./styles/Finder.styled";
@@ -9,6 +9,7 @@ const Finder = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchedGifs, setSearchedGifs] = useState([]);
+  const [placeholderGifs, setPlaceholderGifs] = useState([]);
 
   const getData = useCallback(async () => {
     setLoading(true);
@@ -23,10 +24,30 @@ const Finder = () => {
     setLoading(false);
   }, [searchTerm]);
 
+  useEffect(() => {
+    const getPlaceholderData = async () => {
+      setLoading(true);
+      const response = await axios.get("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
+          q: "search",
+        },
+      });
+      const gifs = response.data.data;
+      setPlaceholderGifs(gifs);
+      setLoading(false);
+    };
+    getPlaceholderData();
+  }, []);
+
   return (
     <div className="component">
       <StyledFinder>
-        <h1>Finder</h1>
+        <div className="heading">
+          <FiSearch className="search-svg" size="30px" />
+          <h1>Finder</h1>
+        </div>
+
         <div className="input-button">
           <input
             type="search"
@@ -42,13 +63,29 @@ const Finder = () => {
           </button>
         </div>
         <div>
-          {loading ? (
-            <Loader />
+          {!searchTerm ? (
+            <div>
+              {loading ? (
+                <Loader />
+              ) : (
+                <div className="search-gallery">
+                  {placeholderGifs.map((gif) => (
+                    <img src={gif.images.fixed_height.url} alt="gif"></img>
+                  ))}
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="search-gallery">
-              {searchedGifs.map((gif) => (
-                <img src={gif.images.fixed_height.url} alt="gif"></img>
-              ))}
+            <div>
+              {loading ? (
+                <Loader />
+              ) : (
+                <div className="search-gallery">
+                  {searchedGifs.map((gif) => (
+                    <img src={gif.images.fixed_height.url} alt="gif"></img>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

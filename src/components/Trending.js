@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Loader from "./Loader";
 import { StyledTrending } from "./styles/Trending.styled";
+import { FiTrendingUp } from "react-icons/fi";
 
 const Trending = () => {
   const [loading, setLoading] = useState(true);
@@ -10,6 +11,7 @@ const Trending = () => {
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const response = await axios.get(
         "https://api.giphy.com/v1/gifs/trending",
         {
@@ -26,7 +28,10 @@ const Trending = () => {
   return (
     <div className="component">
       <StyledTrending>
-        <h1>Trending</h1>
+        <div className="heading">
+          <FiTrendingUp className="trending-svg" size="30px" />
+          <h1>Trending</h1>
+        </div>
         <div>
           {loading ? (
             <Loader />

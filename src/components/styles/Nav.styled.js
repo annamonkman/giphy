@@ -10,14 +10,14 @@ export const StyledNav = styled.nav`
     padding: 0;
     margin: 0;
     .random-svg {
-      color: #ff007b;
+      color: ${(props) => props.theme.colors.random};
     }
     .search-svg {
-      color: #00ff77;
+      color: ${(props) => props.theme.colors.finder};
       transform: scaleX(-1);
     }
     .trending-svg {
-      color: #00d5ff;
+      color: ${(props) => props.theme.colors.trending};
     }
   }
 `;

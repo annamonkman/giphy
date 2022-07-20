@@ -3,16 +3,16 @@ import React from "react";
 import Random from "./Random";
 import Finder from "./Finder";
 import Trending from "./Trending";
-import { StyledMain } from "./styles/Main.styled";
+import { StyledMainDesktop } from "./styles/MainDesktop.styled";
 
-const Main = () => {
+const MainDesktop = () => {
   return (
-    <StyledMain>
+    <StyledMainDesktop>
       <Random />
       <Finder />
       <Trending />
-    </StyledMain>
+    </StyledMainDesktop>
   );
 };
 
-export default Main;
+export default MainDesktop;
