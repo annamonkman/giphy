@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import Error from "./Error";
@@ -13,7 +13,7 @@ const Finder = () => {
   const [placeholderGifs, setPlaceholderGifs] = useState([]);
   const [error, setError] = useState(false);
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     setError(false);
     setLoading(true);
     try {
@@ -30,7 +30,7 @@ const Finder = () => {
       console.log(err);
     }
     setLoading(false);
-  };
+  }, [searchTerm]);
 
   useEffect(() => {
     const getPlaceholderData = async () => {
@@ -75,7 +75,6 @@ const Finder = () => {
             name="search"
             placeholder="Search all GIFs"
             onChange={(event) => {
-              console.log("search term", event.target.value);
               setSearchTerm(event.target.value);
             }}
           />
