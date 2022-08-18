@@ -26,9 +26,6 @@ export const StyledFinder = styled.div`
       );
     }
   }
-  .content__no-results {
-    color: white;
-  }
   .content__gallery {
     margin-top: 30px;
     display: flex;

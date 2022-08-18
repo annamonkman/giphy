@@ -75,8 +75,9 @@ const Random = () => {
         </div>
 
         <div className="random">
-          {error && <Error />}
-          {loading ? (
+          {error ? (
+            <Error />
+          ) : loading ? (
             <Loader />
           ) : (
             <img

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Error from "./Error";
@@ -10,10 +10,16 @@ const Finder = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchedGifs, setSearchedGifs] = useState([]);
-  const [placeholderGifs, setPlaceholderGifs] = useState([]);
   const [error, setError] = useState(false);
 
-  const getData = useCallback(async () => {
+  // ! --------------------------------------GET DATA
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const fetchData = async (event) => {
+    event.preventDefault();
     setError(false);
     setLoading(true);
     try {
@@ -30,32 +36,9 @@ const Finder = () => {
       console.log(err);
     }
     setLoading(false);
-  }, [searchTerm]);
+  };
 
-  useEffect(() => {
-    const getPlaceholderData = async () => {
-      setError(false);
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          "https://api.giphy.com/v1/gifs/search",
-          {
-            params: {
-              api_key: `${process.env.REACT_APP_GIPHY_KEY}`,
-              q: "search",
-            },
-          }
-        );
-        const gifs = response.data.data;
-        setPlaceholderGifs(gifs);
-      } catch (err) {
-        setError(true);
-        console.log(err);
-      }
-      setLoading(false);
-    };
-    getPlaceholderData();
-  }, []);
+  // ! -------------------------------------- RETURN
 
   return (
     <div className="component">
@@ -68,7 +51,7 @@ const Finder = () => {
           <h2 className="component__heading__text">Finder</h2>
         </div>
 
-        <div className="form">
+        <form className="form" onSubmit={fetchData}>
           <input
             className="form__input"
             type="search"
@@ -79,54 +62,31 @@ const Finder = () => {
             }}
           />
           <button
-            onClick={getData}
+            onClick={fetchData}
             aria-label="Search gifs"
             className="form__btn"
           >
             <FiSearch size="25px" />
           </button>
-        </div>
+        </form>
 
         <div className="content">
-          {searchedGifs.length === 0 && (
-            <p className="content__no-results">
-              No results, Try another search
-            </p>
-          )}
-          {searchTerm === "" ? (
-            <>
-              {error && <Error />}
-              {loading ? (
-                <Loader />
-              ) : (
-                <div className="content__gallery">
-                  {placeholderGifs.map((gif) => (
-                    <img
-                      src={gif.images.fixed_height.url}
-                      alt={gif.title}
-                      className="content__gallery__img"
-                    ></img>
-                  ))}
-                </div>
-              )}
-            </>
+          {!searchedGifs ? (
+            <p>Search Gifs</p>
+          ) : error ? (
+            <Error />
+          ) : loading ? (
+            <Loader />
           ) : (
-            <>
-              {error && <Error />}
-              {loading ? (
-                <Loader />
-              ) : (
-                <div className="content__gallery">
-                  {searchedGifs.map((gif) => (
-                    <img
-                      src={gif.images.fixed_height.url}
-                      alt={gif.title}
-                      className="content__gallery__img"
-                    ></img>
-                  ))}
-                </div>
-              )}
-            </>
+            <div className="content__gallery">
+              {searchedGifs.map((gif) => (
+                <img
+                  src={gif.images.fixed_height.url}
+                  alt={gif.title}
+                  className="content__gallery__img"
+                ></img>
+              ))}
+            </div>
           )}
         </div>
       </StyledFinder>

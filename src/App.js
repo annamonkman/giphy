@@ -30,36 +30,28 @@ const App = () => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
   }, []);
 
-  if (width < breakpoint) {
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalSyles />
-        <Header />
-        <Nav />
-        <Routes>
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalSyles />
+      <Header />
+      {width < breakpoint && <Nav />}
+      <Routes>
+        {width < breakpoint ? (
           <Route path="/" element={<MainMob />}>
             <Route index element={<Random />} />
             <Route path="finder" element={<Finder />} />
             <Route path="trending" element={<Trending />} />
           </Route>
-        </Routes>
-      </ThemeProvider>
-    );
-  } else {
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalSyles />
-        <Header />
-        <Routes>
+        ) : (
           <Route path="/" element={<MainDesktop />}>
             <Route index element={<Random />} />
             <Route path="finder" element={<Finder />} />
             <Route path="trending" element={<Trending />} />
           </Route>
-        </Routes>
-      </ThemeProvider>
-    );
-  }
+        )}
+      </Routes>
+    </ThemeProvider>
+  );
 };
 
 export default App;

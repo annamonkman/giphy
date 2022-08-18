@@ -45,8 +45,9 @@ const Trending = () => {
           <h2 className="component__heading__text">Trending</h2>
         </div>
         <div className="content">
-          {error && <Error />}
-          {loading ? (
+          {error ? (
+            <Error />
+          ) : loading ? (
             <Loader />
           ) : (
             <div className="content__gallery">
@@ -55,6 +56,7 @@ const Trending = () => {
                   src={gif.images.fixed_height.url}
                   alt={gif.title}
                   className="content__gallery__img"
+                  id={gif.title}
                 ></img>
               ))}
             </div>
